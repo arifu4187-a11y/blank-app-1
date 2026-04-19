@@ -2,27 +2,52 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فیملی پورٹل - رجسٹریشن</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-    <style>
-        body { background: #f4f7f6; font-family: 'Tahoma', sans-serif; padding-top: 50px; }
-        .box { max-width: 450px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    </style>
 </head>
-<body>
-
-<div class="box shadow border">
-    <h2 class="text-center mb-4">فیملی پورٹل اکاؤنٹ</h2>
-    <div class="mb-3">
-        <label>ای میل</label>
-        <input type="email" id="email" class="form-control" placeholder="ای میل لکھیں">
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card mx-auto shadow" style="max-width: 400px; border-radius: 15px;">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4">نیا اکاؤنٹ بنائیں</h3>
+                <div class="mb-3">
+                    <label>ای میل</label>
+                    <input type="email" id="email" class="form-control" placeholder="example@mail.com">
+                </div>
+                <div class="mb-3">
+                    <label>پاس ورڈ</label>
+                    <input type="password" id="password" class="form-control" placeholder="کم از کم 6 ہندسے">
+                </div>
+                <button onclick="signUp()" class="btn btn-primary w-100">رجسٹر کریں</button>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label>پاس ورڈ</label>
-        <input type="password" id="password" class="form-control" placeholder="پاس ورڈ لکھیں">
-    </div>
-    <button onclick="alert('ابھی ہم فائر بیس جوڑیں گے!')" class="btn btn-primary w-100">رجسٹر کریں</button>
-</div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCEFszHsWHUW4EzVS_ZobYpK_QSVF_zfcE",
+            authDomain: "family-portal-8d643.firebaseapp.com",
+            projectId: "family-portal-8d643",
+            storageBucket: "family-portal-8d643.firebasestorage.app",
+            messagingSenderId: "653852840902",
+            appId: "1:653852840902:web:39aadd95f881ea07af18c7"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function signUp() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => { 
+                    alert("اکاؤنٹ بن گیا!");
+                    window.location.href = "dashboard.html"; 
+                })
+                .catch((error) => { alert("غلطی: " + error.message); });
+        }
+    </script>
 </body>
 </html>
